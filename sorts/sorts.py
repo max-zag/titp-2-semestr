@@ -38,22 +38,26 @@ class SortClass:
                         iterations_count += 1
             print('Bubble sort finished!', f'Result - {bubble_list}', f'Number of iterations - {iterations_count}',
                   sep='\n', end='\n\n')
-            self.results[sort_name]['arr_len'].append(self.arrays_size[sort_cycle])
             self.results[sort_name]['result_arrays'].append(bubble_list)
             self.results[sort_name]['iterations_count'].append(iterations_count)
 
-    # def linear_sort(self):
-    #     print('Linear Sort')
-    #     linear_list = self.arrays_size.copy()
-    #     iterations_count = 0
-    #     for i in range(len(linear_list) - 1):
-    #         for j in range(i + 1, len(linear_list)):
-    #             if linear_list[j] < linear_list[i]:
-    #                 linear_list[i], linear_list[j] = linear_list[j], linear_list[i]
-    #                 iterations_count += 1
-    #     print('Linear Sort finished!', f'Result - {linear_list}', f'Number of iterations - {iterations_count}',
-    #           sep='\n', end='\n\n')
-    #     self.results['linear_list'] = linear_list
+    def linear_sort(self):
+        print('Linear Sort')
+        sort_name = 'linear_sort'
+        self.sort_init(sort_name)
+
+        for sort_cycle in range(len(self.results[sort_name]['raw_arrays'])):
+            linear_list = self.results[sort_name]['raw_arrays'][sort_cycle]
+            iterations_count = 0
+            for i in range(len(linear_list) - 1):
+                for j in range(i + 1, len(linear_list)):
+                    if linear_list[j] < linear_list[i]:
+                        linear_list[i], linear_list[j] = linear_list[j], linear_list[i]
+                        iterations_count += 1
+            print('Linear Sort finished!', f'Result - {linear_list}', f'Number of iterations - {iterations_count}',
+                  sep='\n', end='\n\n')
+            self.results[sort_name]['result_arrays'].append(linear_list)
+            self.results[sort_name]['iterations_count'].append(iterations_count)
 
     def get_result_list(self, sort_name):
         try:
