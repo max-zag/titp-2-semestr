@@ -2,11 +2,12 @@ from random import randint
 
 
 class SortClass:
-    arrays_size = [25, 43, 79, 160, 362, 909, 245, 725, 43, 79, 160, 362, 909, 2457]
+    arrays_size = []
     # arrays_size = [25, 79, 160, 245, 362, 725, 909, 2457]
     results = {}
 
-    def __init__(self):
+    def __init__(self, arrays_size):
+        self.arrays_size = arrays_size
         print('Starting program...')
 
     def arrays_generator(self):
