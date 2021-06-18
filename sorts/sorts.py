@@ -19,10 +19,8 @@ class SortClass:
     def sort_init(self, sort_name):
         self.results[sort_name] = {}
         self.results[sort_name]['raw_arrays'] = self.arrays_generator()
-        self.results[sort_name]['result_arrays'] = []
         self.results[sort_name]['iterations_count'] = []
         self.results[sort_name]['comparison_count'] = []
-        self.results[sort_name]['arr_len'] = []
         self.results[sort_name]['name'] = sort_name
 
     def bubble_sort(self):
@@ -31,21 +29,28 @@ class SortClass:
         self.sort_init(sort_name)
 
         for sort_cycle in range(len(self.results[sort_name]['raw_arrays'])):
-            print('Bubble sort started!', f'Array - {sort_cycle + 1}', sep='\n')
             bubble_list = self.results[sort_name]['raw_arrays'][sort_cycle]
-            iterations_count = 0
+            print(f'Array - {sort_cycle + 1}. Len - {len(bubble_list)}')
+            transposition_count = 0
             comparison_count = 0
-            for i in range(len(bubble_list) - 1):
-                for j in range(0, len(bubble_list) - i - 1):
+
+            def swap(i, j):
+                bubble_list[i], bubble_list[j] = bubble_list[j], bubble_list[i]
+
+            n = len(bubble_list)
+            swapped = True
+            x = -1
+            while swapped:
+                swapped = False
+                x = x + 1
+                for i in range(1, n - x):
                     comparison_count += 1
-                    if bubble_list[j] > bubble_list[j + 1]:
-                        bubble_list[j], bubble_list[j + 1] = bubble_list[j + 1], bubble_list[j]
-                        iterations_count += 1
-            print('Bubble sort finished!', f'Result - {bubble_list}', f'Number of iterations - {iterations_count}',
+                    if bubble_list[i - 1] > bubble_list[i]:
+                        swap(i - 1, i)
+                        transposition_count += 1
+                        swapped = True
+            print(f'Result - {bubble_list}', f'Number of transposition - {transposition_count}',
                   f'Number of comparison - {comparison_count}', sep='\n', end='\n\n')
-            self.results[sort_name]['result_arrays'].append(bubble_list)
-            self.results[sort_name]['iterations_count'].append(iterations_count)
-            self.results[sort_name]['comparison_count'].append(comparison_count)
 
     def linear_sort(self):
         print('Linear Sort')
@@ -53,21 +58,23 @@ class SortClass:
         self.sort_init(sort_name)
 
         for sort_cycle in range(len(self.results[sort_name]['raw_arrays'])):
-            print('Linear sort started!', f'Array - {sort_cycle + 1}', sep='\n')
             linear_list = self.results[sort_name]['raw_arrays'][sort_cycle]
-            iterations_count = 0
+            print(f'Array - {sort_cycle + 1}. Len - {len(linear_list)}')
+            transposition_count = 0
             comparison_count = 0
-            for i in range(len(linear_list) - 1):
+
+            for i in range(len(linear_list)):
+                minimum = i
                 for j in range(i + 1, len(linear_list)):
                     comparison_count += 1
-                    if linear_list[j] < linear_list[i]:
-                        linear_list[i], linear_list[j] = linear_list[j], linear_list[i]
-                        iterations_count += 1
-            print('Linear Sort finished!', f'Result - {linear_list}', f'Number of iterations - {iterations_count}',
+                    if linear_list[j] < linear_list[minimum]:
+                        minimum = j
+
+                transposition_count += 1
+                linear_list[minimum], linear_list[i] = linear_list[i], linear_list[minimum]
+
+            print(f'Result - {linear_list}', f'Number of transposition - {transposition_count}',
                   f'Number of comparison - {comparison_count}', sep='\n', end='\n\n')
-            self.results[sort_name]['result_arrays'].append(linear_list)
-            self.results[sort_name]['iterations_count'].append(iterations_count)
-            self.results[sort_name]['comparison_count'].append(comparison_count)
 
     def get_result_list(self, sort_name):
         try:
